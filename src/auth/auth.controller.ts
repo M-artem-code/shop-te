@@ -6,12 +6,14 @@ import {
   Post,
   Req,
   Res,
+  UnauthorizedException,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import type { Response } from 'express';
+import type { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -42,6 +44,16 @@ export class AuthController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ) {
-    return this.authService.register(dto, res);
+    const refreshToken = req.cookies['refreshToken'];
+
+    if (!refreshToken) {
+      throw new UnauthorizedException('No refresh token');
+    }
+
+    const {
+      user,
+      accessToken,
+      refreshToken: newRefresh,
+    } = await this.authService.getNewTokens(refreshToken);
   }
 }
