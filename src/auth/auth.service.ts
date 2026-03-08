@@ -136,7 +136,7 @@ export class AuthService {
   addRefreshTokenToResponse(res: Response, refreshToken: string) {
     const exporesIn = new Date();
     exporesIn.setDate(exporesIn.getDate() + this.EXPIRE_DAY_REFRESH_TOKEN);
-    res.cookie(this.JWT_REFRESH_TOKEN_TTL, refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       domain: this.COOKIE_DOMAIN,
       expires: exporesIn,

@@ -8,9 +8,9 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
   constructor(private readonly configService: ConfigService) {
     super({
       clientID: configService.get<string>('YANDEX_CLIENT_ID')!,
-      clientSecret: configService.get<string>('YANDEX_SECRET')!,
+      clientSecret: configService.get<string>('YANDEX_CLIENT_SECRET')!,
       callbackURL:
-        configService.get<string>('SERVER_URL') + '/auth/YANDEX/callback',
+        configService.get<string>('SERVER_URL') + '/auth/yandex/callback',
     });
   }
 

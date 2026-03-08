@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -26,7 +19,7 @@ model User {
   favorites Product[]
   orders    Order[]
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("users")
@@ -42,12 +35,12 @@ model Store {
   userId String? @map("user_id")
 
   products   Product[]
-  catigories Category[]
+  categories Category[]
   colors     Color[]
   reviews    Review[]
   orders     Order[]
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("store")
@@ -75,7 +68,7 @@ model Product {
   user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("product")
@@ -92,10 +85,10 @@ model Category {
   store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("categoy")
+  @@map("category")
 }
 
 model Color {
@@ -109,7 +102,7 @@ model Color {
   store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("color")
@@ -130,7 +123,7 @@ model Review {
   store   Store?  @relation(fields: [storeId], references: [id])
   storeId String? @map("store_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("review")
@@ -139,7 +132,7 @@ model Review {
 model Order {
   id String @id @default(cuid())
 
-  status EnumOrdeStatus @default(PENDING)
+  status EnumOrderStatus @default(PENDING)
 
   items OrderItem[]
   total Int
@@ -150,7 +143,7 @@ model Order {
   user   User?   @relation(fields: [userId], references: [id])
   userId String? @map("user_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("order")
@@ -168,13 +161,13 @@ model OrderItem {
   product   Product? @relation(fields: [productId], references: [id])
   productId String?  @map("product_id")
 
-  ceratedAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("order_item")
 }
 
-enum EnumOrdeStatus {
+enum EnumOrderStatus {
   PENDING
   PAYED
 }
