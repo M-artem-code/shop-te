@@ -22,7 +22,7 @@ export class ProductService {
     return products;
   }
 
-  private getSearchTermFilter(searchTerm: string) {
+  private async getSearchTermFilter(searchTerm: string) {
     return this.prisma.product.findMany({
       where: {
         OR: [
@@ -107,7 +107,9 @@ export class ProductService {
       },
     });
 
-    const productsIds = mostPopular.map((item) => item.productId);
+    const productsIds = mostPopular
+      .map((item) => item.productId)
+      .filter((id): id is string => id !== null);
 
     const products = await this.prisma.product.findMany({
       where: {
@@ -147,7 +149,7 @@ export class ProductService {
   }
 
   async create(storeId: string, dto: ProductDto) {
-    return this.prisma.color.create({
+    return this.prisma.product.create({
       data: {
         ...dto,
         storeId: storeId,
@@ -158,7 +160,7 @@ export class ProductService {
   async update(id: string, dto: ProductDto) {
     await this.getById(id);
 
-    return this.prisma.color.update({
+    return this.prisma.product.update({
       where: { id },
       data: dto,
     });
@@ -167,7 +169,7 @@ export class ProductService {
   async delete(id: string) {
     await this.getById(id);
 
-    return this.prisma.color.delete({
+    return this.prisma.product.delete({
       where: {
         id,
       },

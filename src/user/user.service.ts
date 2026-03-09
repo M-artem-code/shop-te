@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { hash } from 'argon2';
 import { PrismaService } from '../prisma/prisma.service';
 import { AuthDto } from '../auth/dto/auth.dto';
@@ -38,7 +38,11 @@ export class UserService {
   async toggleFavorite(productId: string, userId: string) {
     const user = await this.getById(userId);
 
-    const isExist = user!.favorites.some(
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const isExist = user.favorites.some(
       (favorite) => favorite.id === productId,
     );
 
