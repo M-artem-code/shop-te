@@ -1,0 +1,30 @@
+.wrapper {
+	@apply min-h-screen grid;
+
+	> .left {
+		@apply h-full items-center justify-center;
+	}
+
+	> .right {
+		@apply h-full flex flex-col justify-center items-center;
+
+		> .card {
+			@apply border-none flex flex-col items-center justify-center w-[380px];
+			> .header {
+				@apply text-center;
+			}
+
+			> .content {
+				@apply w-full;
+
+				button {
+					@apply w-full;
+				}
+
+				> .social {
+					@apply w-full;
+				}
+			}
+		}
+	}
+}

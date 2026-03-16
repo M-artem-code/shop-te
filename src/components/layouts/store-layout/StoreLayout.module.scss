@@ -1,0 +1,12 @@
+.wrapper {
+	@apply flex flex-col w-full;
+
+	> .layout {
+		> .sidebar {
+			@apply   h-full  flex-col fixed;
+		}
+		> .header {
+			@apply fixed;
+		}
+	}
+}

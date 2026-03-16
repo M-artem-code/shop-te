@@ -1,0 +1,11 @@
+.wrapper {
+	@apply flex flex-col w-full flex-1;
+
+	> .navigation {
+		@apply flex flex-col w-full;
+
+		.route {
+			@apply flex items-center;
+		}
+	}
+}

@@ -1,0 +1,10 @@
+.header {
+	@apply flex items-center border-b;
+
+	> .header_menu {
+		@apply flex items-center;
+	}
+	img {
+		@apply rounded-full;
+	}
+}
